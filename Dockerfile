@@ -6,9 +6,9 @@ FROM runpod/pytorch:2.2.1-py3.10-cuda12.1.1-devel-ubuntu22.04
 # Set environment variables
 ENV LANG=C.UTF-8     LC_ALL=C.UTF-8     PYTHONUNBUFFERED=1     DEBIAN_FRONTEND=noninteractive     RUNPOD_PROJECT_ROOT=/app
 
-# Install git (needed for pip install git+... if not in base image, -devel images usually have it)
-# Also update package lists and install build-essential if needed for Apex, though -devel should have it.
-RUN apt-get update && apt-get install -y --no-install-recommends     git     && rm -rf /var/lib/apt/lists/*
+# Install git and build-essential
+# build-essential provides compilers (g++, etc.) and tools like make, which are needed for compiling Apex.
+RUN apt-get update && apt-get install -y --no-install-recommends     git     build-essential     && rm -rf /var/lib/apt/lists/*
 
 # Create a working directory
 WORKDIR ${RUNPOD_PROJECT_ROOT}
@@ -25,7 +25,7 @@ RUN chmod +x ./runpod.sh && ./runpod.sh
 RUN python -m pip install --upgrade pip     && python -m pip install --no-cache-dir -r requirements.txt
 
 # Expose the port RunPod expects for the handler (if applicable, often not needed for serverless)
-# EXPOSE 8000
+# EXPOSE 8000 
 
 # Set the default command.
 # For RunPod serverless, the environment often looks for handler.py.
