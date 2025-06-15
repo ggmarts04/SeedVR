@@ -13,19 +13,27 @@ RUN apt-get update && apt-get install -y --no-install-recommends     git     bui
 # Create a working directory
 WORKDIR ${RUNPOD_PROJECT_ROOT}
 
-# Copy the entire project repository content
+# Copy project requirements first for layer caching
+COPY requirements.txt .
+
+# Upgrade pip and install essential Python build tools and PyTorch first
+# These are needed for Apex installation
+RUN python -m pip install --upgrade pip setuptools wheel     && python -m pip install --no-cache-dir         torch==2.3.0         torchvision==0.18.0         torchaudio==0.18.0
+        # Add any other direct build dependencies for Apex if known, otherwise rely on build-essential
+
+# Copy the rest of the project repository content
 COPY . .
 
 # Make runpod.sh executable and run it to install Apex
 # This bakes Apex into the Docker image.
 RUN chmod +x ./runpod.sh && ./runpod.sh
 
-# Install Python dependencies
-# Ensure pip is up-to-date first
-RUN python -m pip install --upgrade pip     && python -m pip install --no-cache-dir -r requirements.txt
+# Install the rest of Python dependencies from requirements.txt
+# PyTorch, torchvision, torchaudio will be skipped by pip if already installed to the correct version.
+RUN python -m pip install --no-cache-dir -r requirements.txt
 
 # Expose the port RunPod expects for the handler (if applicable, often not needed for serverless)
-# EXPOSE 8000 
+# EXPOSE 8000
 
 # Set the default command.
 # For RunPod serverless, the environment often looks for handler.py.
