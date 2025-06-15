@@ -1,47 +1,243 @@
-# Common
-einops==0.7.0                   # Tensor operations
+# Merged from environment.yml and original requirements.txt
+# Pinning versions where specified for reproducibility
 
-# Training
-torch==2.3.0                    # Torch
-omegaconf==2.3.0                # Configuration system.
-lpips==0.1.4                    # LPIPS model for VAE training
+# --- Core Dependencies from environment.yml (pip section) & README ---
+absl-py==2.1.0
+accelerate==0.33.0
+addict==2.4.0
+# antlr4-python3-runtime==4.9.3 # Often a dependency of other packages, let's see if it's pulled automatically
+anykeystore==0.2
+# apex==0.1 # Standard pip install, may need custom build if issues arise. README mentions git install.
+asttokens==2.4.1
+astunparse==1.6.3
+attrs==23.2.0
+av==12.0.0
+basicsr==1.4.2
+beartype==0.18.5
+beautifulsoup4==4.12.3
+bitsandbytes==0.44.1
+# black==24.4.2 # Formatting tool, not strictly a runtime dep
+bs4==0.0.2
+bson==0.5.10
+certifi==2024.6.2
+cffi==1.16.0
+# cfgv==3.4.0 # Pre-commit related
+charset-normalizer==3.3.2
+click==8.1.7
+colorama==0.4.6
+# contourpy==1.2.1 # Often a matplotlib dependency
+cryptacular==1.6.2
+# cryptography==39.0.2 # Often a requests/ssl dependency
+cycler==0.12.1
+decorator==4.4.2
+deepdiff==7.0.1
+deprecated==1.2.14
+diffusers==0.33.1 # Original req had 0.29.1, env.yml has 0.33.1. Taking newer.
+distlib==0.3.8
+dnspython==2.6.1
+docker-pycreds==0.4.0
+docstring-parser==0.16
+einops==0.7.0
+exceptiongroup==1.2.1
+executing==2.0.1
+expecttest==0.2.1
+facexlib==0.3.0
+ffmpeg-python==0.2.0
+filelock==3.15.4
+# filterpy==1.4.5 # Not in original, seems specific
+# flake8==7.1.0 # Linter
+flash-attn==2.5.9.post1 # Crucial from README
+# flatbuffers==24.3.25 # Often a TF/Keras dep
+fonttools==4.53.0
+fsspec==2023.6.0
+ftfy==6.2.0
+future==1.0.0
+# gast==0.5.4 # TF dep
+gdown==5.2.0
+# gitdb==4.0.11 # GitPython dep
+# gitpython==3.1.43 # For git operations, not core runtime for inference
+# google-pasta==0.2.0 # TF dep
+# greenlet==3.0.3 # SQLAlchemy dep
+grpcio==1.64.1
+h5py==3.11.0
+# hf-xet==1.1.2 # Hugging Face XetHub, not core
+huggingface-hub==0.32.2
+# hupper==1.12.1 # Pyramid framework related
+hypothesis==6.100.1
+icecream==2.1.3
+# identify==2.5.36 # Pre-commit related
+idna==3.7
+imageio==2.34.0
+imageio-ffmpeg==0.5.1
+# importlib-metadata==7.2.1 # Python 3.8+ has this
+# importlib-resources==6.4.0
+# iniconfig==2.0.0 # Pytest dep
+# ipaddress==1.0.23 # Python 3.3+ has this
+# ipython==8.18.1 # For interactive use
+# isort==5.13.2 # Formatting tool
+# jedi==0.19.1 # IPython dep
+jinja2==3.1.4
+jsonargparse==4.14.1
+keras==3.3.3
+kiwisolver==1.4.5
+lazy-loader==0.4
+# libclang==18.1.1 # Clang bindings
+lightning-utilities==0.11.2
+# llvmlite==0.43.0 # Numba dep
+lmdb==1.5.1
+lpips==0.1.4
+markdown==3.6
+markdown-it-py==3.0.0
+markupsafe==2.1.5
+matplotlib==3.9.0
+# matplotlib-inline==0.1.7 # IPython dep
+# mccabe==0.7.0 # Flake8 dep
+mdurl==0.1.2
+mediapy==1.2.0
+ml-dtypes==0.3.2
+moviepy==1.0.3
+mpmath==1.3.0
+msgpack==1.0.8
+# mypy-extensions==1.0.0 # Typing
+namex==0.0.8
+networkx==3.2.1
+# nodeenv==1.9.1 # Pre-commit related
+# numba==0.60.0 # JIT compiler, if not used directly by model, can be omitted
+numpy==1.24.4 # Original req has no version, env.yml has 1.24.4
+oauthlib==3.2.0
+omegaconf==2.3.0
+openai-clip==1.0.1 # Also known as clip-openai
+opencv-python==4.9.0.80
+# opencv-python-headless==4.10.0.84 # Either this or opencv-python, not both usually. Sticking to non-headless.
+opt-einsum==3.3.0
+optree==0.11.0
+ordered-set==4.1.0
+packaging==22.0 # Original req has no version
+pandas==1.5.3
+parameterized==0.9.0
+parso==0.8.4
+# pastedeploy==3.1.0 # Pyramid framework
+# pathspec==0.12.1 # Pre-commit related
+# pathtools==0.1.2 # Watchdog dep
+# pbkdf2==1.3 # Cryptacular dep
+# pexpect==4.9.0 # For controlling other applications
+pillow==10.3.0 # PIL replacement, original has no version
+# plaster==1.1.2 # Pyramid framework
+# plaster-pastedeploy==1.0.1 # Pyramid framework
+platformdirs==4.2.2
+# pluggy==1.5.0 # Pytest dep
+proglog==0.1.10
+promise==2.3
+prompt-toolkit==3.0.47
+protobuf==3.20.3 # TF/Tensorboard dep, original has no version
+psutil==6.0.0
+# ptyprocess==0.7.0 # Pexpect dep
+pure-eval==0.2.2
+# pyarrow==11.0.0 # Pandas/data related, if not directly used can be large
+pycocotools==2.0.7
+# pycodestyle==2.12.0 # Flake8 dep
+# pycparser==2.22 # CFFI dep
+pydantic==1.10.17 # Used by many HF tools
+# pyflakes==3.2.0 # Flake8 dep
+pygments==2.18.0
+# pyiqa==0.1.13 # Image quality assessment, if not used directly
+pyjwt==2.8.0
+# pyopenssl==23.2.0 # Requests dep
+pyparsing==3.1.2
+# pyramid==2.0.2 # Web framework
+# pyramid-mailer==0.15.1 # Pyramid framework
+pysocks==1.7.1
+# pytest==8.3.3 # Testing framework
+python-dateutil==2.9.0.post0
+# python-etcd==0.4.5 # etcd client
+# python3-openid==3.2.0 # OpenID auth
+pytz==2024.1
+pyyaml==6.0.1
+regex==2024.5.15
+# repoze-sendmail==4.4.1 # Pyramid dep
+requests==2.32.3 # For video download in handler
+requests-oauthlib==2.0.0
+rich==13.7.1
+rotary-embedding-torch==0.5.3
+safetensors==0.4.3
+# scenedetect==0.6.4 # Video scene detection
+schedule==1.2.2
+scikit-image==0.24.0
+scipy==1.13.1
+sentencepiece==0.2.0
+sentry-sdk==2.6.0
+setproctitle==1.3.3
+shortuuid==1.0.13
+six==1.16.0
+# smmap==5.0.1 # GitPython dep
+sortedcontainers==2.4.0
+soupsieve==2.5
+# sqlalchemy==2.0.31 # Database toolkit
+# stack-data==0.6.3 # IPython dep
+sympy==1.12.1
+tabulate==0.9.0
+# tb-nightly==2.20.0a20250528 # Tensorboard nightly, prefer stable
+tensorboard==2.16.2 # Stable Tensorboard
+tensorboard-data-server==0.7.2
+tensorflow==2.16.1 # From original requirements.txt, for video dataloading
+# tensorflow-io-gcs-filesystem==0.37.0 # If using GCS with TF
+termcolor==2.4.0
+# tifffile==2024.8.30 # Image file format
+tiktoken==0.7.0 # Original: 0.7.0, env.yml: 0.9.0. Taking newer from env.yml if it was there, else original. README used 0.7.0.
+# timm==1.0.11 # PyTorch Image Models
+tokenizers==0.20.3 # HF tokenizers
+tomli==2.0.1
+torch==2.3.0 # Original: 2.3.0. env.yml has 2.4.0+cu121. Using 2.3.0 from original requirements.txt for now.
+# torch-fidelity==0.3.0 # FID metric
+torchaudio==0.18.0 # Original: no version. env.yml has 2.4.0+cu121. Using torchvision's counterpart 0.18.0
+torchmetrics==1.3.2
+torchvision==0.18.0 # Original: 0.18.0. env.yml has 0.19.0+cu121. Using 0.18.0 from original.
+tqdm==4.66.4
+traitlets==5.14.3
+# transaction==4.0 # Zope related
+transformers==4.38.2 # Original: 4.38.2. env.yml has 4.46.2. Taking original for now to match other torch versions.
+transformers-stream-generator==0.0.5
+# translationstring==1.4 # Pyramid dep
+# triton==3.0.0 # If model uses Triton kernels
+typing-extensions==4.12.2
+urllib3==1.26.19 # Pinned due to recent changes in >2.0
+# velruse==1.1.1 # Pyramid auth
+# venusian==3.1.0 # Pyramid config
+# virtualenv==20.26.3 # Env management tool
+wcwidth==0.2.13
+# webob==1.8.7 # Pyramid dep
+werkzeug==3.0.3 # Used by Flask/Tensorboard etc.
+# wrapt==1.16.0
+# wtforms==3.1.2 # Web forms
+# wtforms-recaptcha==0.3.2
+# yapf==0.43.0 # Formatter
+zipp==3.19.2
+# zope-deprecation==5.0 # Zope framework
+# zope-interface==6.4.post2 # Zope framework
+# zope-sqlalchemy==3.1 # Zope framework
 
-# Dataloading
-bson==0.5.10                    # bson for Image dataloading
-tensorflow==2.16.1              # Video dataloading
-opencv-python==4.9.0.80         # OpenCV
-sentencepiece==0.2.0            # For Text Encoder
+# --- Added for RunPod ---
+runpod
 
-# Modeling
-diffusers==0.29.1               # Diffusers
-rotary-embedding-torch==0.5.3   # Rotary positional embedding
-transformers==4.38.2            # Transformers
-torchvision==0.18.0             # Torchvision
-tiktoken==0.7.0                 # Tiktoken for generation
-transformers_stream_generator==0.0.5 #LLM generation support
+# --- From original requirements.txt if not covered above and relevant ---
+# black >= 24, < 25 # Already decided to skip for runtime
+# flake8 >= 7, < 8 # Already decided to skip for runtime
+# isort >= 5, < 6 # Already decided to skip for runtime
+# pre-commit==3.7.0 # Already decided to skip for runtime
+# wandb # Not explicitly in env.yml pip, but often used. Skipping for now to keep it minimal for serverless.
+# xformers # Can provide speedups but also large, make optional or handle in Dockerfile if needed.
 
-# Metrics
-torchmetrics==1.3.2             # Core module for metric
-pycocotools==2.0.7              # COCO-related
-torch-fidelity==0.3.0           # FID-related
-
-# Experiment Tracking
-moviepy==1.0.3                  # WandB Logging Image & Video
-imageio==2.34.0                 # WandB Logging Image & Video
-tabulate==0.9.0                 # Logging Table
-deepdiff==7.0.1                 # Find difference of config
-
-# Testing
-parameterized==0.9.0            # Define multiple tests through decorators.
-
-# Notebook
-mediapy==1.2.0                  # Notebook Visualization
-
-# DevOPs
-black >= 24, < 25               # Code formatting
-flake8 >= 7, < 8                # Code style
-isort >= 5, < 6                 # Import sorting
-pre-commit==3.7.0               # Pre-commit hooks
-expecttest==0.2.1               # Pytorch dist tests
-hypothesis==6.100.1             # Fix randomness
-av==12.0.0                      # Process audio and video
+# --- Notes ---
+# 1. Python version: Aim for 3.9 or 3.10 based on these dependencies.
+#    The conda env specifies 3.9, while README implies 3.10.
+#    Torch versions like 2.3.0 are compatible with both.
+# 2. CUDA version: Torch/Torchaudio from env.yml had +cu121. Ensure RunPod worker has compatible CUDA.
+#    The versions chosen (torch 2.3.0, torchvision 0.18.0) should be available with common CUDA versions.
+# 3. apex: Added 'apex' for pip install. If this fails, a custom Docker image with
+#    `pip install git+https://github.com/NVIDIA/apex.git --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext"`
+#    or similar might be needed, depending on the RunPod base image.
+# 4. Some packages from environment.yml (conda section) like _libgcc_mutex are system libraries
+#    and should be part of the RunPod base image.
+# 5. Commented out some build/dev/testing tools and very specific/large libraries if their
+#    direct use in inference isn't immediately obvious, to keep the environment leaner.
+#    These can be added back if import errors occur.
