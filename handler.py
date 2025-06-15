@@ -8,7 +8,7 @@ import sys
 # At the top with other imports
 from huggingface_hub import snapshot_download, HfFolder # Added HfFolder
 import glob # To check for model files (no longer needed with flag file, but good to have if strategy changes)
-from download_color_fix import ensure_color_fix_file # Import the function
+# Removed import for ensure_color_fix_file as color_fix.py is now part of the repo
 
 
 # Configure basic logging
@@ -203,16 +203,10 @@ def handler(job):
         # Return an error structure that RunPod can understand if initialization fails.
         return {"error": f"Critical error: Model setup failed: {str(e)}", "status": "failed_initialization"}
 
-    # Ensure color_fix.py is downloaded
-    try:
-        if not ensure_color_fix_file():
-            # ensure_color_fix_file logs its own errors.
-            logging.error("color_fix.py download failed. Cannot proceed.")
-            return {"error": "Critical error: color_fix.py setup failed.", "status": "failed_initialization"}
-        logging.info("color_fix.py is available.")
-    except Exception as e:
-        logging.error(f"color_fix.py download/check failed critically: {e}", exc_info=True)
-        return {"error": f"Critical error: color_fix.py setup failed: {str(e)}", "status": "failed_initialization"}
+    # color_fix.py is now part of the repository in projects/video_diffusion_sr/
+    # No download needed. The inference script will import it directly.
+    # If it's missing, the inference script's import will fail, which is an error state.
+    logging.info("Assuming color_fix.py is present in projects/video_diffusion_sr/")
 
     return run_seedvr_job(job)
 
